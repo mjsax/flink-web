@@ -29,8 +29,8 @@ For this reasons, as part of the Flink 0.10 release, Flink ships with a Storm co
 Only minor code adaptations are required in order to submit the program to Flink instead of Storm.
 This minimizes the work for a developer to run an existing Storm topology while leveraging Apache Flink’s fast and robust execution engine.
 
-We note that the Storm compatibility package is continuously improving and does not cover the full spectrum of Storm’s API.
-However, it is powerful enough to execute several topologies.
+We note that the Storm compatibility package is continuously improving and does not cover the full spectrum of Storm’s API, yet.
+However, it is powerful enough to already cover most use cases.
 
 ## Executing Storm topologies with Flink
 
@@ -59,7 +59,7 @@ builder.setBolt("sink", new StormBoltFileSink(outputFilePath))
        .shuffleGrouping("counter");
 ```
 
-In order to execute the topology, we need to translated it to a `FlinkTopology` and submit it to a local or remote Flink cluster, very similar to submitting the application to a Storm cluster.
+In order to execute the topology, we need to translate it to a `FlinkTopology` and submit it to a local or remote Flink cluster, very similar to submitting the application to a Storm cluster.
 
 ```java
 // transform Storm topology to Flink program
@@ -94,8 +94,8 @@ bin/flink run StormWordCount.jar
 ```
 
 The used Spouts and Bolts as well as the topology assemble code is not changed at all!
-Only the translation and submitting step has to be changed to the Storm-API compatible Flink pendants.
-This allows for minimal code adaption and full reuse of the actual topology building and submitting code.
+Only the translation and submission step have to be changed to the Storm-API compatible Flink pendants.
+This allows for minimal code adaption and full reuse of the actual topology building and job submission code.
 
 ### Embedding Spouts and Bolts in Flink programs
 
@@ -140,7 +140,7 @@ We also note that the resulting program is fully typed, and type errors will be 
 
 ## Outlook
 
-The Storm compatibility package is currently in beta and does lack a few features.
+The Storm compatibility package is currently in beta and undergoes constant development.
 We are currently working on providing consistency guarantees for stateful Bolts.
 Furthermore, we want to provide a better API integration for embedded Spouts and Bolts by providing a "StormExecutionEnvironment" as a special extension of Flink's `StreamExecutionEnvironment`.
 We are also investigating the integration of Storm's higher-level programming API Trident.
